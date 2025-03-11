@@ -1,0 +1,91 @@
+.header {
+  background-color: #1e1e1e;
+  padding: 3px 20px;
+  color: #90caf9;
+  border-bottom: 2px solid #252525;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: space-between;
+  font-family: "Afacad Flux", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-variation-settings:
+    "slnt" 0;
+}
+
+#logo {
+  height: 50px;
+  margin-left: 20px;
+  border-radius: 10px;
+}
+
+#credits-button {
+  background-color: rgb(73, 197, 57);
+  color: whitesmoke;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: medium;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+#credits-button:hover,
+#credits-button:focus {
+  background-color: rgb(56, 159, 8);
+  color: rgb(255, 255, 255);
+  outline: none;
+}
+
+#credits-button:active {
+  background-color: #000000;
+  color: grey;
+  transform: none;
+}
+
+#sign-out-button {
+  background-color: #e21515;
+
+  color: whitesmoke;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 600;
+  font-size: medium;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+}
+
+#sign-out-button:hover,
+#sign-out-button:focus {
+  background-color: #c30404;
+  color: rgb(255, 255, 255);
+  outline: none;
+}
+
+#sign-out-button:active {
+  background-color: #2a2a2a;
+  color: grey;
+  transform: none;
+}
+
+#logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.regAndDeptDetail
+{
+  font-size: larger;
+}

@@ -1,0 +1,136 @@
+/* Card.css */
+.card-container {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 2%;
+  height: auto !important;
+}
+
+.card-container .card{
+  background-color: #f8f8f8;
+  border: 1px solid #000000;
+  border-radius: 16px;
+  padding: 20px;
+  padding-top: 0%;
+  width: 600px;
+  text-align: center;
+  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.08);
+  /* transition: transform 0.3s ease, box-shadow 0.3s ease, height 0.3s ease, border-color 0.3s ease; */
+  overflow: visible;
+}
+
+/* .card-container .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 12px 32px rgba(0, 0, 0, 0.15);
+  border-color: #ffffff;
+} */
+
+.card-container .card h2 {
+  font-size: 2.5rem;
+  font-weight: 650;
+  color: #000000;
+  margin-bottom: 10px;
+}
+
+.card-container .card p {
+  font-size: 1.1rem;
+  color: #000000;
+  margin-bottom: 24px;
+  line-height: 0.5;
+}
+
+.card .radio-group
+{
+  margin: 0 auto; 
+
+}
+.card .radio-group label{
+  text-align: left;
+}
+
+.card .radio-group span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 1.2rem;
+  color: #000000;
+  padding: 8px 5px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.card .radio-group label:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+  /* Light blue highlight */
+  color: #000000;
+  /* Make text blue on hover */
+}
+
+.card .radio-group input[type="radio"] {
+  accent-color: #000000;
+  cursor: pointer;
+}
+
+.card .selected-option-container {
+  margin: 0px;
+  padding: 3px 0;
+  position: relative;
+  opacity: 1;
+  text-align: center;
+  animation: fadeIn 0.3s ease;
+  /* Smooth transition when appearing */
+  visibility: visible;
+}
+
+.card .selected-option-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 12px;
+}
+
+.card .continue-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  opacity: 1;
+}
+
+.card .continue-button button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  /* transition: background-color 0.2s ease, transform 0.2s ease; */
+  width: 50%;
+}
+
+.card .continue-button button:hover {
+  background-color: #0458b3;
+  transform: translateY(-2px);
+}
+
+.continue-button button:active {
+  transform: translateY(0);
+}
+
+/* Animation for appearing content */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

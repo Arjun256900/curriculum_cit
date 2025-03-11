@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.faculty-semester-dropdown-container {
+  position: relative;
+}
+
+.faculty-semester-dropdown-button {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border: 2px solid #444;
+  cursor: pointer;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s all ease;
+}
+
+.faculty-semester-dropdown-button:hover {
+  background-color: #444;
+  color: #fff;
+  border-color: #666;
+}
+
+.faculty-semester-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #222;
+  min-width: 160px;
+  border: 2px solid #444;
+  border-radius: 5px;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.faculty-semester-dropdown-container:hover .faculty-semester-dropdown-content {
+  display: block;
+  opacity: 1;
+}
+
+.faculty-semester-dropdown-content a {
+  color: #bbb;
+  padding: 12px 20px;
+  text-decoration: none;
+  display: block;
+  border-bottom: 1px solid #444;
+  transition: background-color 0.3s ease;
+}
+
+.faculty-semester-dropdown-content a:hover {
+  background-color: #444;
+  color: #fff;
+}
+
+.faculty-semester-dropdown-content a:last-child {
+  border-bottom: none;
+}

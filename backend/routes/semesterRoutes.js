@@ -1,5 +1,5 @@
 import express from "express";
-import pool from "../config/db.js";
+import {pool} from "../config/db.js";
 import format from "pg-format";
 
 const router = express.Router();

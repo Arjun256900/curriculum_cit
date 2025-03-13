@@ -12,12 +12,13 @@ const credentials = [
   { email: "DEPT-OF-AIDS--@HOD", password: "cit.--@HOD_AIDS" },
   { email: "DEPT-OF-CSBS--@HOD", password: "cit.--@HOD_CSBS" },
   { email: "DEPT-OF-MCT--@HOD", password: "cit.--@HOD_MCT" },
-  { email: "DEPT-OF-CIVIL--@HOD", password: "cit.--@HOD_CIVIL" },
+  { email: "DEPT-OF-CIVIL--@HOD", password: " " },
   { email: "DEAN--@CIT", password: " " },
   { email: "DEPT-OF-MECH--@HOD", password: "cit--@HOD_MECH" },
   // Faculty mails
   { email: "DEPT-OF-CSE-@FACULTY", password: "cit--CSE@FACULTY" },
   { email: "DEPT-OF-IT-@FACULTY", password: " " },
+  { email: "DEPT-OF-CIVIL-@FACULTY", password: " "}
 ];
 
 export default credentials;

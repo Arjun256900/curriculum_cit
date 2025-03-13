@@ -23,7 +23,8 @@ function DashBoard() {
     7: [],
     8: [],
   });
-  console.log(department);
+  console.log("DEPT CONTEXT:", department);
+  console.log("REG CONTEXT:", regulation)
   const location = useLocation();
   const loginData = location.state.rd || {};
   console.log(loginData);
@@ -48,7 +49,7 @@ function DashBoard() {
     <div className="app-container">
       <Header />
       <NavBar onSelectSemester={handleSemesterSelect} /> {/* Use NavBar */}
-      {user == "FACULTY" ? (
+      {/* {user == "FACULTY" ? (
         <FacultyDashboard />
       ) : (
         <MainContent
@@ -58,7 +59,8 @@ function DashBoard() {
           department={department || location}
           regulation={regulation}
         />
-      )}
+      )} */}
+      <FacultyDashboard />
     </div>
   );
 }

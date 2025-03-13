@@ -12,6 +12,7 @@ import DepartmentSelect from "./components/DepartmentSelect.jsx";
 import PreviewTable from "./components/PreviewTable.jsx";
 import { DepartmentProvider } from "./components/DepartmentContext";
 import { RegulationProvider } from "./components/RegulationContext";
+import FacultyDashboard from "./components/FacultyDashboard.jsx";
 
 
 function App() {

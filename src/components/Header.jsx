@@ -34,14 +34,14 @@ const Header = () => {
           DashBoard
         </button>
       </div>
-      <div className="regAndDeptDetail">
+      <div className="text-lg text-white">
         <p>Regulation: {regulation}</p> {/* Display department */}
       </div>
-      <div id="logo-container">
+      <div id="logo-container" className="text-3xl">
         <img src={logo} alt="CIT.AI Logo" id="logo" />
-        <h1 id="header-h1">CIT.AI</h1>
+        CIT.AI
       </div>
-      <div className="regAndDeptDetail">
+      <div className="text-lg text-white">
         <p>
           {department == "DEAN" ? "User : " : "Department of "} {department}
         </p>{" "}

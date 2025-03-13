@@ -18,15 +18,19 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "@mui/icons-material": "^6.1.10",
     "@mui/material": "^6.1.10",
+    "@tailwindcss/vite": "^4.0.13",
     "@toolpad/core": "^0.11.0",
+    "autoprefixer": "^10.4.21",
     "axios": "^1.7.9",
     "chart.js": "^4.4.7",
     "chartjs-plugin-datalabels": "^2.2.0",
+    "postcss": "^8.5.3",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
-    "react-select": "^5.9.0"
+    "react-select": "^5.9.0",
+    "tailwindcss": "^4.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
@@ -43,5 +47,13 @@
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "eslint.config.js",
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thrish05/Thrish_curriculum_cit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Thrish05/Thrish_curriculum_cit/issues"
+  },
+  "homepage": "https://github.com/Thrish05/Thrish_curriculum_cit#readme"
 }

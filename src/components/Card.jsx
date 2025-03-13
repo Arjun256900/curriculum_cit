@@ -40,7 +40,7 @@ function Card({selectedOption, onOptionChange, onContinue }) {
               <input
                 type="radio"
                 name="regulation"
-                value="R21"
+                value="REG_21"
                 checked={selectedOption === "R21"}
                 onChange={handleOptionChange}
               />
@@ -50,7 +50,7 @@ function Card({selectedOption, onOptionChange, onContinue }) {
               <input
                 type="radio"
                 name="regulation"
-                value="R22"
+                value="REG_22"
                 checked={selectedOption === "R22"}
                 onChange={handleOptionChange}
               />
@@ -60,7 +60,7 @@ function Card({selectedOption, onOptionChange, onContinue }) {
               <input
                 type="radio"
                 name="regulation"
-                value="R22R"
+                value="REG_22R"
                 checked={selectedOption === "R22R"}
                 onChange={handleOptionChange}
               />
@@ -70,7 +70,7 @@ function Card({selectedOption, onOptionChange, onContinue }) {
               <input
                 type="radio"
                 name="regulation"
-                value="R24"
+                value="REG_24"
                 checked={selectedOption === "R24"}
                 onChange={handleOptionChange}
               />

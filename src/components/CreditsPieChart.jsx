@@ -141,20 +141,13 @@ const CreditsPieChart = () => {
     <>
       <CreditsPieChartContext.Provider value = {{department, selectedRegulation}}>
       <Header />
-      <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-        <h1 style={{ marginBottom: "20px", textAlign: "center" }}>
+      <div className="flex flex-col justify-center mt-10 gap-4 text-center">
+        <h1 className="text-white text-xl">
           Department Courses Overview
         </h1>
 
         <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            marginBottom: "20px",
-            gap: "15px",
-          }}
+        className="flex items-center justify-center flex-wrap gap-5 mb-4"
         >
           <div style={{ display: "flex", gap: "15px" }}>
             {isDean ? (

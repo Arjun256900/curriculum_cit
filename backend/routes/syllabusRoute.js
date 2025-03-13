@@ -3,30 +3,34 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/fetch-syllabus", async (req, res) => {
-  const { regulation, department, course_code } = req.query;
-  if (!regulation || !department || !course_code) {
+router.get("/", async (req, res) => {
+  const { regulation, department } = req.query;
+  console.log("CONTEXTS: ", regulation, department);
+  if (!regulation || !department) {
     return res.status(400).json({
       message:
-        "Missing required parameters: regulation, department, course_code",
+        "Missing required parameters: regulation, department",
     });
   }
   let finalRegulation, client;
   if (regulation == "REG_22") {
     finalRegulation = "REG_22";
     client = await pool2.connect();
+    console.log("Connected to REG_22");
   } else if (regulation == "REG_R22R") {
     finalRegulation = "REG_R22R";
     client = await pool3.connect();
+    console.log("Connected to REG_22R");
   } else if (regulation == "REG_24") {
     finalRegulation = "REG_24";
     client = await pool4.connect();
+    console.log("Connected to REG_24");
   }
   try {
     console.log(finalRegulation);
-    const coursesToFetch = course_code.split('-');
-    const query = `SELECT * FROM ${department} WHERE course_code = ANY($1)`;
-    const result = await client.query(query, [coursesToFetch]);
+    const query = `SELECT * FROM ${department}`;
+    const result = await client.query(query);
+    console.log(result);
     if (result.rows.length > 0) {
       res.json(result.rows);
     } else {

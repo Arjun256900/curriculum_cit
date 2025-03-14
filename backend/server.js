@@ -5,7 +5,8 @@ import dotenv from "dotenv";
 import semesterRoutes from "./routes/semesterRoutes.js";
 import creditsDisplayRoutes from "./routes/creditsDisplayRoutes.js";
 import syllabusRoute from "./routes/syllabusRoute.js";
-
+import loginRoute from "./routes/authRoute.js";
+import connection from "./config/mongoDb.js";
 
 dotenv.config();
 const app = express();
@@ -20,15 +21,18 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+app.use("/api/auth", loginRoute);
 app.use("/api/syllabus", syllabusRoute);
 app.use("/api", creditsDisplayRoutes);
 app.use("/", semesterRoutes);
 
-
-
-// PostgreSQL connection pool
-// eslint-disable-next-line no-unused-vars
-// Start the server
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+// The server starts only after mongodb connection is established
+connection
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Server running on http://localhost:${port}`);
+    });
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });

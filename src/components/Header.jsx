@@ -1,27 +1,22 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import logo from "../assets/cit_logo2.png";
-import { useDepartment } from "../components/DepartmentContext";
-import { useRegulation } from "../components/RegulationContext";
+import { AuthContext } from "./AuthContext";
 
 const Header = () => {
   const navigate = useNavigate();
-  const { department } = useDepartment();
-  const { regulation } = useRegulation();
-  // const location = useLocation();
+  const { logout } = useContext(AuthContext);
+  const userObj = JSON.parse(localStorage.getItem("user")) || {};
+  const regulation = localStorage.getItem("regulation");
 
-  const handleSignOut = () => {
-    // Add sign-out logic here (e.g., clearing session, tokens, etc.)
-    navigate("/");
+  const handleSignOut = async () => {
+    await logout();
+    navigate("/login");
   };
 
   const navigateToDashboard = () => {
-    // Navigate to the dashboard with department and regulation as state
-    navigate("/dashboard", {
-      state: { department, regulation },
-    });
+    navigate("/dashboard");
   };
 
   return (
@@ -35,7 +30,7 @@ const Header = () => {
         </button>
       </div>
       <div className="text-lg text-white">
-        <p>Regulation: {regulation}</p> {/* Display department */}
+        <p>Regulation: {regulation}</p>
       </div>
       <div id="logo-container" className="text-3xl">
         <img src={logo} alt="CIT.AI Logo" id="logo" />
@@ -43,9 +38,9 @@ const Header = () => {
       </div>
       <div className="text-lg text-white">
         <p>
-          {department == "DEAN" ? "User : " : "Department of "} {department}
-        </p>{" "}
-        {/* Display department */}
+          {userObj.department == "DEAN" ? "User : " : "Department of "}{" "}
+          {userObj.department}
+        </p>
       </div>
       <div className="header-buttons">
         <Link to="/chart" className="credits-button">

@@ -49,7 +49,7 @@ function DashBoard() {
     <div className="app-container">
       <Header />
       <NavBar onSelectSemester={handleSemesterSelect} /> {/* Use NavBar */}
-      {/* {user == "FACULTY" ? (
+      {user == "FACULTY" ? (
         <FacultyDashboard />
       ) : (
         <MainContent
@@ -59,8 +59,8 @@ function DashBoard() {
           department={department || location}
           regulation={regulation}
         />
-      )} */}
-      <FacultyDashboard />
+      )}
+      {/* <FacultyDashboard /> */}
     </div>
   );
 }

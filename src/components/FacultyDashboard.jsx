@@ -1,6 +1,7 @@
 import { useState, useEffect} from "react";
-import { useDepartment } from "../components/DepartmentContext"; // Import department context
-import { useRegulation } from "../components/RegulationContext"; // Import regulation context
+import { useDepartment } from "../components/DepartmentContext"; 
+import { useRegulation } from "../components/RegulationContext"; 
+import { Listbox } from "@headlessui/react";
 
 
 export default function FacultyDashboard() {
@@ -16,8 +17,7 @@ export default function FacultyDashboard() {
   // console.log("DEPT CONTEXT: ", dept.department);
   useEffect(() => {
     const fetchRecords = async() => {
-      if (!reg.regulation || !dept.department) return; // Ensure values exist before fetching
-
+      if (!reg.regulation || !dept.department) return; 
       try {
         const response = await fetch(
           `http://localhost:5000/api/syllabus?regulation=${reg.regulation}&department=${dept.department}`
@@ -27,10 +27,10 @@ export default function FacultyDashboard() {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
-        const data = await response.json(); // Extract JSON data
+        const data = await response.json(); 
         // console.log("Extracted Data:", data);
 
-        setRecords(data); // Store the fetched data in state
+        setRecords(data);
       } catch (error) {
         console.error("Fetch Error:", error);
       }
@@ -69,10 +69,10 @@ export default function FacultyDashboard() {
   }
   return (
     <>
-      <div className="flex w-full justify-center mt-[15vh]">
+      <div className={`flex w-full justify-center mt-[15vh]`}>
       
       {Object.keys(viewSelectedSyllabus).length > 0 && (
-        <div className="fixed inset-10 z-10 bg-white shadow-2xl h-[90vh] w-[90vw] p-4 flex flex-row text-black overflow-y-scroll">
+        <div className="fixed inset-15 z-10 bg-white shadow-2xl h-[85 vh] w-[90vw] p-4 flex flex-row text-black overflow-y-scroll">
           <div>
             {Object.entries(viewSelectedSyllabus).map(([key, value]) => (
               <div key = {key}>
@@ -86,12 +86,12 @@ export default function FacultyDashboard() {
               </div>
           ))}
           </div>
-          <button className="absolute right-4 top-4 hover:scale-210 active:scale-150 transition-all duration-300" onClick = {handleCloseSyllabus}>⤫</button>
+          <button className="absolute right-3 top-3 hover:scale-210 active:scale-150 cursor-pointer transition-all duration-300" onClick = {handleCloseSyllabus}>⤫</button>
         </div>
       )}   
         
         <div className="bg-white rounded-2xl w-[75%] p-5 transition-all duration-300  lg:scale-110 md:scale-100">
-          <div className="flex flex-row justify-center gap-4 mb-4">
+          <div className="flex flex-row gap-4 mb-4">
             <select
               className="bg-white border border-gray-300 text-black h-10 overflow-y-scroll rounded-md"
               defaultValue=""
@@ -103,10 +103,12 @@ export default function FacultyDashboard() {
                 Select Course Code
               </option>
               {records.map((record) => (
-                   <option key = {record.course_code} value = {record.course_code}>{record.course_code}</option> 
+                   <option key = {record.course_code} value = {record.course_code}>{record.course_code} - {record.course_name}</option> 
               ))}
             </select>
-
+            {/* <Listbox.Button>
+              {selected}
+            </Listbox.Button> */}
             {/* <input
               type="submit"
               className="bg-white text-black rounded-md px-4 py-2 border border-gray-300 

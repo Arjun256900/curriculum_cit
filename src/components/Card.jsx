@@ -1,12 +1,10 @@
 import React, { useState } from "react";
-import "./Card.css";
-import Header from "./Header.jsx";
 import { useNavigate } from "react-router-dom";
 
 function Card({ selectedOption, onOptionChange }) {
-  const [regulation, setRegulation] = useState(selectedOption || ""); // Initialize with prop if available
+  const [regulation, setRegulation] = useState(selectedOption || "");
   const navigate = useNavigate();
-  const userObj = JSON.parse(localStorage.getItem("user")) || {}; // ✅ FIXED: Parse JSON safely
+  const userObj = JSON.parse(localStorage.getItem("user")) || {};
 
   const handleOptionChange = (event) => {
     const selected = event.target.value;
@@ -20,71 +18,61 @@ function Card({ selectedOption, onOptionChange }) {
   };
 
   return (
-    <>
-      <Header />
-      <div className="card-container">
-        <div className="card">
-          <h2 className="card-title">
-            {userObj?.department || "No Department"}
-          </h2>
-          {/* ✅ Fix: Prevent errors if department is missing */}
-          <p className="card-description">Please select the Regulation</p>
-          <div className="radio-group">
-            <label>
-              <input
-                type="radio"
-                name="regulation"
-                value="R21"
-                checked={regulation === "R21"} // ✅ Fix: Use `regulation`
-                onChange={handleOptionChange}
-              />
-              <span>Regulation 2021</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="regulation"
-                value="R22"
-                checked={regulation === "R22"}
-                onChange={handleOptionChange}
-              />
-              <span>Regulation 2022</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="regulation"
-                value="R22R"
-                checked={regulation === "R22R"}
-                onChange={handleOptionChange}
-              />
-              <span>Regulation 2022 Revised</span>
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="regulation"
-                value="R24"
-                checked={regulation === "R24"}
-                onChange={handleOptionChange}
-              />
-              <span>Regulation 2024</span>
-            </label>
-          </div>
+    <div className="bg-neutral-900 bg-opacity-80 backdrop-blur-lg border border-neutral-700 p-8 rounded-lg shadow-xl w-[400px]">
+      <h2 className="text-3xl font-semibold text-white text-center mb-4">
+        {userObj?.department || "No Department"}
+      </h2>
+      <p className="text-gray-400 text-center mb-6">
+        Please select the Regulation
+      </p>
 
-          {regulation && (
-            <div className="selected-option-container">
-              <h3 className="selected-option-text">
-                Selected Option: {regulation}
-              </h3>
-              <div className="continue-button">
-                <button onClick={handleContinue}>Continue</button>
-              </div>
+      {/* Radio Button Group */}
+      <div className="space-y-4">
+        {["R21", "R22", "R22R", "R24"].map((value) => (
+          <label
+            key={value}
+            className="flex items-center bg-neutral-800 px-4 py-3 rounded-lg cursor-pointer hover:bg-neutral-700 transition-all"
+          >
+            <input
+              type="radio"
+              name="regulation"
+              value={value}
+              checked={regulation === value}
+              onChange={handleOptionChange}
+              className="hidden"
+            />
+            <div
+              className={`w-5 h-5 rounded-full border-2 flex items-center justify-center mr-3 transition-all ${
+                regulation === value
+                  ? "border-blue-500 bg-blue-500"
+                  : "border-gray-500"
+              }`}
+            >
+              {regulation === value && (
+                <div className="w-2.5 h-2.5 bg-white rounded-full"></div>
+              )}
             </div>
-          )}
-        </div>
+            <span className="text-gray-300">{`Regulation ${value.replace(
+              "R",
+              ""
+            )}`}</span>
+          </label>
+        ))}
       </div>
-    </>
+
+      {/* Continue Button (Visible Only if Regulation is Selected) */}
+      {regulation && (
+        <div className="mt-6 text-center">
+          <h3 className="text-gray-300 mb-4">Selected: {regulation}</h3>
+          <button
+            onClick={handleContinue}
+            className="w-full bg-blue-500 py-3 rounded-md text-white font-medium text-lg transition-all duration-300 hover:bg-neutral-900 hover:text-white hover:border hover:border-white shadow-md cursor-pointer"
+          >
+            Continue
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

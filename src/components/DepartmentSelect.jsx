@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Card from "./Card.jsx";
-import "./CardAndSelectStyle.css";
 
 function DepartmentSelect() {
   const [selectedOption, setSelectedOption] = useState(null);
-  const userObj = localStorage.getItem("user");
+  const userObj = JSON.parse(localStorage.getItem("user")) || {};
 
   // Handle change for the radio buttons
   const handleOptionChange = (event) => {
@@ -12,7 +11,7 @@ function DepartmentSelect() {
   };
 
   return (
-    <div className="grid-container">
+    <div className="min-h-screen flex items-center justify-center bg-gray-950">
       <Card
         dept={userObj.department}
         selectedOption={selectedOption}

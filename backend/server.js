@@ -7,6 +7,7 @@ import creditsDisplayRoutes from "./routes/creditsDisplayRoutes.js";
 import syllabusRoute from "./routes/syllabusRoute.js";
 import loginRoute from "./routes/authRoute.js";
 import connection from "./config/mongoDb.js";
+import coursesRoute from "./routes/coursesRoute.js";
 
 dotenv.config();
 const app = express();
@@ -22,6 +23,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use("/api/auth", loginRoute);
+app.use("/api/courses", coursesRoute);
 app.use("/api/syllabus", syllabusRoute);
 app.use("/api", creditsDisplayRoutes);
 app.use("/", semesterRoutes);

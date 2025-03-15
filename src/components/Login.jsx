@@ -28,14 +28,14 @@ const Login = () => {
       ) : (
         <div className="min-h-screen flex items-center justify-center bg-gray-950">
           <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-            <h2 className="text-2xl font-semibold text-center text-black mb-6">
+            <h2 className="text-4xl font-semibold text-center text-black mb-6">
               Login
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-black dark:text-black"
+                  className="block text-lg font-medium text-black dark:text-black"
                 >
                   Email
                 </label>
@@ -52,7 +52,7 @@ const Login = () => {
               <div className="mb-6">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium text-black dark:text-black"
+                  className="block text-lg font-medium text-black dark:text-black"
                 >
                   Password
                 </label>
@@ -68,7 +68,7 @@ const Login = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-gray-950 hover:scale-105  transition-all duration-300 text-white py-3 rounded-md cursor-pointer"
+                className="w-full bg-gray-950 hover:scale-105  transition-all duration-300 text-white py-3 rounded-md cursor-pointer active:scale-95"
                 onClick={handleSubmit}
               >
                 Log In

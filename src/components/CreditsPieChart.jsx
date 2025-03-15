@@ -6,13 +6,16 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { useNavigate } from "react-router-dom";
 import Table from "./Table.jsx";
-import { useDepartment } from "../components/DepartmentContext";
+
 import Header from "./Header.jsx";
 
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels);
 
 const CreditsPieChart = () => {
-  const { department } = useDepartment(); // Get department from context
+
+  const userObj = JSON.parse(localStorage.getItem("user"));
+  const department = userObj.department;
+  
   const navigate = useNavigate();
   const [departments] = useState([
     { id: 1, name: "CSE" },

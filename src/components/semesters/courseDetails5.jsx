@@ -37,23 +37,32 @@ export default function courseDetails({sem})
 
     console.log("Course data: ", courseData);
     return(
-        <div className = "bg-white text-black w-full flex items-center justify-center">
+        <div className = "w-full flex items-center justify-center gap-10">
             {
                 courseData.map(course => (
-                    <div key={course.course_id} className="border-b-2 border-black p-4 w-full">
-                        <h2>{course.course_name}</h2>
-                        <p>Course ID: {course.course_code}</p>
-                        <p>Course Name: {course.course_name}</p>
-                        <p>Course Category: {course.category}</p>
-                        <p>Theory/Practical: {course.tp}</p>
-                        <p>Gate/Common: {course.gate_common}</p>
-                        <p>Common Dept: {course.common_dept}</p>
-                        <p>Credits: {course.credits}</p>
-                        <p>LTP: {course.ltp}</p>
+                    <div key={course.course_id} className="bg-black text-white border-1 border-white p-4 w-1/2 rounded-3xl hover:scale-105 transition-all duration-300 cursor-pointer flex flex-col hover:border-1 hover:border-white hover:shadow-[0_0_15px_5px_rgba(255,255,255,0.8)]">
+                        <div className="flex flex-col">
+                            <h2 className = "text-2xl text-center w-full mb-2">{course.course_name}</h2>
+                            <p>Course ID: {course.course_code}</p>
+                            <p>Course Category: {course.category}</p>
+                        </div>
+                        <div className = "flex flex-row">
+                            <div className="w-1/2">
+                            <p>Theory/Practical: {course.tp}</p>
+                            <p>Gate/Common: {course.gate_common}</p>
+                            <p>Common Dept: {course.common_dept}</p>
+                            </div>
+                            <div className="w-1/2">
+                            <p>Credits: {course.credits}</p>
+                            <p>LTP: {course.ltp}</p>
+                            </div>
+                        </div>
                     </div>
                 ))
             }
         
+        
         </div>
+        
     )
 }

@@ -13,16 +13,16 @@ router.get("/", async (req, res) => {
     });
   }
   let finalRegulation, client;
-  if (regulation == "REG_22") {
-    finalRegulation = "REG_22";
+  if (regulation == "R22") {
+    finalRegulation = "R22";
     client = await pool2.connect();
     console.log("Connected to REG_22");
-  } else if (regulation == "REG_R22R") {
-    finalRegulation = "REG_R22R";
+  } else if (regulation == "R22R") {
+    finalRegulation = "R22R";
     client = await pool3.connect();
     console.log("Connected to REG_22R");
-  } else if (regulation == "REG_24") {
-    finalRegulation = "REG_24";
+  } else if (regulation == "R24") {
+    finalRegulation = "R24";
     client = await pool4.connect();
     console.log("Connected to REG_24");
   }

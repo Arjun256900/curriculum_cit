@@ -6,7 +6,7 @@ dotenv.config();
 const pool = new Pool({
   host: "localhost",
   user: "postgres",
-  password: "arjuncoc101",
+  password: "root",
   database: "curriculum",
   port: 5432,
 });
@@ -14,8 +14,8 @@ const pool = new Pool({
 const pool2 = new Pool({
   host: "localhost",
   user: "postgres",
-  password: "arjuncoc101",
-  database: "REG_22",
+  password: "root",
+  database: "R22",
   port: 5432,
 });
 
@@ -23,7 +23,7 @@ const pool3 = new Pool({
   host: "localhost",
   user: "postgres",
   password: "arjuncoc101",
-  database: "REG_R22R",
+  database: "R22R",
   port: 5432,
 });
 
@@ -31,37 +31,37 @@ const pool4 = new Pool({
   host: "localhost",
   user: "postgres",
   password: "arjuncoc101",
-  database: "REG_24",
+  database: "R24",
   port: 5432,
 });
 
-// pool
-//   .connect()
-//   .then(() => console.log("Connected to the database curriculum"))
-//   .catch((err) => console.error("Error connecting to database:", err));
-
-// // Test the connection when the file is executed
-// pool.query("SELECT NOW()", (err, res) => {
-//   if (err) {
-//     console.error("Connection failed:", err);
-//   } else {
-//     console.log("Connected to PostgreSQL:", res.rows[0]);
-//   }
-// });
-
-pool2
+pool
   .connect()
-  .then(() => console.log("Connected to the database REG_22"))
+  .then(() => console.log("Connected to the database curriculum"))
   .catch((err) => console.error("Error connecting to database:", err));
 
 // Test the connection when the file is executed
-pool2.query("SELECT NOW()", (err, res) => {
+pool.query("SELECT NOW()", (err, res) => {
   if (err) {
     console.error("Connection failed:", err);
   } else {
     console.log("Connected to PostgreSQL:", res.rows[0]);
   }
 });
+
+// pool2
+//   .connect()
+//   .then(() => console.log("Connected to the database REG_22"))
+//   .catch((err) => console.error("Error connecting to database:", err));
+
+// // Test the connection when the file is executed
+// pool2.query("SELECT NOW()", (err, res) => {
+//   if (err) {
+//     console.error("Connection failed:", err);
+//   } else {
+//     console.log("Connected to PostgreSQL:", res.rows[0]);
+//   }
+// });
 
 // pool3
 //   .connect()

@@ -1,6 +1,4 @@
 import { useState, useEffect} from "react";
-import { useDepartment } from "../components/DepartmentContext"; 
-import { useRegulation } from "../components/RegulationContext"; 
 import { Listbox } from "@headlessui/react";
 
 
@@ -10,17 +8,18 @@ export default function FacultyDashboard() {
   const[chosenRecords, setChosenRecords] = useState([]);
   const[viewSelectedSyllabus, setViewSelectedSyllabus] = useState({});
 
-  const reg = useRegulation();
-  const dept = useDepartment();
+  const userObj = JSON.parse(localStorage.getItem('user'));
+  const department = userObj.department;
+  const regulation = localStorage.getItem("regulation");
 
-  // console.log("REGULATION CONTEXT: ", reg.regulation);
-  // console.log("DEPT CONTEXT: ", dept.department);
+  console.log(department, regulation);
+  
   useEffect(() => {
     const fetchRecords = async() => {
-      if (!reg.regulation || !dept.department) return; 
+      if (!regulation || !department) return; 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/syllabus?regulation=${reg.regulation}&department=${dept.department}`
+          `http://localhost:5000/api/syllabus?regulation=${regulation}&department=${department}`
         );
 
         if (!response.ok) {
@@ -36,7 +35,7 @@ export default function FacultyDashboard() {
       }
     }
     fetchRecords();
-  }, [reg.regulation, dept.department]);
+  }, [regulation, department]);
   
   useEffect(() => {
     const newChosenRecords = selected.map((courseCode) =>

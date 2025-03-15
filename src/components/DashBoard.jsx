@@ -10,7 +10,8 @@ function DashBoard() {
   const regulation = localStorage.getItem("regulation");
   const userObj = JSON.parse(localStorage.getItem("user")) || {};
   const token = localStorage.getItem("token") || null;
-
+  const location = window.location.pathname;
+  console.log("Location in dash :", location);
   const [selectedSemester, setSelectedSemester] = useState("1");
   const [courseData, setCourseData] = useState({
     1: [],
@@ -38,7 +39,7 @@ function DashBoard() {
     <>
       {token ? (
         <div className="app-container">
-          <Header />
+          <Header location = {location}/>
           <NavBar onSelectSemester={handleSemesterSelect} />
           {userObj.role == "faculty" ? (
             <FacultyDashboard />

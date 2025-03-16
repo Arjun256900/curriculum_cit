@@ -9,9 +9,10 @@ import CourseDetails8 from "./semesters/courseDetails8.jsx";
 import CourseDetails1 from "./semesters/courseDetails1.jsx";
 import "./MainContent.css";
 import "../components/semesters/courseDetails.css"
+import FacultyDashboard from "./FacultyDashboard.jsx";
 
 
-const MainContent = ({ selectedSemester }) => {
+const MainContent = ({ selectedSemester, activeNav, setActiveNav }) => {
   const userObj = JSON.parse(localStorage.getItem('user'));
   const [semesterCourses, setSemesterCourses] = useState({
     "1": [],
@@ -68,13 +69,6 @@ const MainContent = ({ selectedSemester }) => {
       return <div>Error: No courses found for this semester.</div>;
     }
 
-    const commonProps = {
-      department: department,
-      regulation: regulation,
-      semester: selectedSemester,
-      setCourses: updateCoursesForSemester,
-    };
-
     switch (selectedSemester) {
       case "1":
         return <CourseDetails1 sem = {1} />;
@@ -95,9 +89,16 @@ const MainContent = ({ selectedSemester }) => {
       default:
         return <div className="welcome-msg">Select a semester to add course details</div>;
     }
+    
   };
 
-  return <div className="main_content">{renderCourseDetails()}</div>;
+  return (
+  <div className="main_content">
+      {activeNav === "dashboard" ? (renderCourseDetails()) : (
+        <FacultyDashboard />
+      )}
+  </div>
+  )
 };
 
 export default MainContent;

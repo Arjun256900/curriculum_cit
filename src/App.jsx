@@ -30,7 +30,7 @@ function App() {
           <Route path="/select-department" element={<DepartmentSelect />} />
           <Route
             path="/dashboard"
-            element={token ? <DashBoard /> : <Navigate to="/login" />}
+            element={token ? <DashBoard /> : <Navigate to="/" />}
           />
           <Route path="/chart" element={<CreditsPieChart />} />
           <Route path="/preview" element={<PreviewTable />} />

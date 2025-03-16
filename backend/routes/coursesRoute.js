@@ -12,7 +12,7 @@ router.get('/', async(req, res) => {
         {
             return res.status(400).json({message: "Missing required parameters: semester, department, regulation"});
         }
-        const result = await pool.query("SELECT * FROM revampcourses WHERE semester = $1 AND department = $2 AND regulation = $3",
+        const result = await pool.query("SELECT * FROM courses WHERE semester = $1 AND department = $2 AND regulation = $3",
         [sem, department, regulation]);
         return res.status(200).json(result);
     }

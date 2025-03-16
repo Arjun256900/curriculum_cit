@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion"; // Import AnimatePresen
 import logo from "../assets/cit_logo2.png";
 import { AuthContext } from "./AuthContext";
 
-const Header = ({}) => {
+const Header = ({ activeNav, setActiveNav }) => {
   const navigate = useNavigate();
   const { logout } = useContext(AuthContext);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -12,7 +12,6 @@ const Header = ({}) => {
   const dropdownRef = useRef(null);
   const regulation = localStorage.getItem("regulation");
   const userObj = JSON.parse(localStorage.getItem("user")) || {};
-  const [activeNav, setActiveNav] = useState("dashboard");
 
   const location = window.location.pathname;
 
@@ -55,7 +54,11 @@ const Header = ({}) => {
       <div className="flex flex-row justify-between p-3 items-center text-gray-300">
         {/* Logo */}
         <div className="flex flex-row items-center">
-          <img alt="logo" className="w-16 h-16 object-contain rounded-2xl" src={logo} />
+          <img
+            alt="logo"
+            className="w-16 h-16 object-contain rounded-2xl"
+            src={logo}
+          />
           <p className="px-3 text-5xl">
             CIT<span className="text-blue-400">.AI</span>
           </p>
@@ -66,14 +69,33 @@ const Header = ({}) => {
           <a
             href="/chart"
             onClick={() => handleOptionSelect("analysis")}
-            className={`${activeNav === "analysis" ? "text-blue-500" : ""} cursor-pointer text-xl px-2 hover:text-white transition duration-300 hover:shadow-lg hover:shadow-white/10 ${location === "/select-department" ? "hidden" : "block"}`}
+            className={`${
+              activeNav === "analysis" ? "text-blue-500" : ""
+            } cursor-pointer text-xl px-2 hover:text-white transition duration-300 hover:shadow-lg hover:shadow-white/10 ${
+              location === "/select-department" ? "hidden" : "block"
+            }`}
           >
             Analysis
           </a>
           <a
-            href = "/dashboard"
+            href="/dashboard/#"
+            onClick={() => handleOptionSelect("syllabus")}
+            className={`${
+              activeNav === "syllabus" ? "text-blue-500" : ""
+            } cursor-pointer text-xl px-2 hover:text-white transition duration-300 hover:shadow-lg hover:shadow-white/10 ${
+              location === "/select-department" ? "hidden" : "block"
+            }`}
+          >
+            Syllabus
+          </a>
+          <a
+            href="/dashboard"
             onClick={() => handleOptionSelect("dashboard")}
-            className={`${activeNav === "dashboard" ? "text-blue-500" : ""} cursor-pointer text-xl px-2 hover:text-white transition duration-300 hover:shadow-lg hover:shadow-white/10 ${location === "/select-department" ? "hidden" : "block"}`}
+            className={`${
+              activeNav === "dashboard" ? "text-blue-500" : ""
+            } cursor-pointer text-xl px-2 hover:text-white transition duration-300 hover:shadow-lg hover:shadow-white/10 ${
+              location === "/select-department" ? "hidden" : "block"
+            }`}
           >
             Dashboard
           </a>

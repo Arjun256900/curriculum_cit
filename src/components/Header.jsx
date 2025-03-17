@@ -19,7 +19,7 @@ const Header = ({ activeNav, setActiveNav }) => {
 
   const handleSignOut = async () => {
     await logout();
-    navigate("/login");
+    navigate("/");
   };
 
   function handleOptionSelect(selectedNav) {
@@ -130,7 +130,9 @@ const Header = ({ activeNav, setActiveNav }) => {
                   onClick={handleDepartmentClick} // Triggers notification
                   className="block px-4 py-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white transition"
                 >
-                  Department - {userObj.department}
+                  {userObj && userObj.department
+                    ? `Department of ${userObj.department.toUpperCase()}`
+                    : "Department not available"}
                 </a>
                 <a
                   href="/select-department"
@@ -139,7 +141,10 @@ const Header = ({ activeNav, setActiveNav }) => {
                   Regulation - {regulation}
                 </a>
                 <a className="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition">
-                  You are {userObj.role.toUpperCase()}
+                  You are{" "}
+                  {userObj && userObj.role
+                    ? userObj.role.toUpperCase()
+                    : "Role not available"}
                 </a>
                 <button
                   onClick={handleSignOut}

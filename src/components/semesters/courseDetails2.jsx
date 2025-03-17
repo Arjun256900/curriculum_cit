@@ -6,7 +6,7 @@ export default function CourseDetails({ sem }) {
   const [isRequesting, setIsRequesting] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [requestText, setRequestText] = useState("");
-  const [name, setName] = useState("");
+  const [name, setName] = useState("");   // Name of the faculty who raises the request
 
   const userObj = JSON.parse(localStorage.getItem("user")) || null;
   const regulation = localStorage.getItem("regulation");
@@ -39,12 +39,12 @@ export default function CourseDetails({ sem }) {
         body: JSON.stringify({
           course: selectedCourse,
           requestText: requestText,
-          name: name,
+          facultyName: name,
           requestedBy: userObj.role,
           department: userObj.department,
           lastViewed: Date.now(),
-          hodComment: "Pending",
-          deanComment: "Pending",
+          hodComment: "Has not yet commented",
+          deanComment: "Has not yet been forwarded to",
         }),
       }
     );

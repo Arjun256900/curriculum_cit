@@ -143,7 +143,20 @@ router.post("/dean-action", async (req, res) => {
         }
       );
       await newChangeMade.save();
+      res
+        .status(200)
+        .json({ message: "Request accepted by Dean successfully" });
     } else if (body.action === "rejected") {
+      await Request.updateOne(
+        { requestText: req.body.requestText },
+        {
+          statusForNoti: "rejected",
+          hodComment: req.body.hod_comment,
+          deanComment: req.body.dean_comment,
+          status: req.body.status,
+          lastViewed: req.body.lastViewed,
+        }
+      );
     }
   } catch (err) {
     console.error("Error handling Dean action:", err);

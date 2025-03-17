@@ -8,11 +8,28 @@ export default function NotificationsPage() {
   const tabs = ["all", "accepted", "rejected", "forwarded", "pending"];
   const [selectedRequest, setSelectedRequest] = useState(null);
   const userObj = JSON.parse(localStorage.getItem("user"));
+  const [isCourseModal, setIsCourseModal] = useState(false);
   const [comment, setComment] = useState({
     hodComment: "",
     deanComment: "",
   });
   const [name, setName] = useState(""); //For HOD name
+
+  function formatDate(timestamp) {
+    const date = new Date(timestamp);
+
+    // Using toLocaleString for formatting the date in a human-readable format
+    return date.toLocaleString("en-US", {
+      weekday: "long", // e.g., "Monday"
+      year: "numeric", // e.g., "2025"
+      month: "long", // e.g., "March"
+      day: "numeric", // e.g., "17"
+      hour: "2-digit", // e.g., "02"
+      minute: "2-digit", // e.g., "32"
+      second: "2-digit", // e.g., "12"
+      hour12: true, // Use 12-hour format
+    });
+  }
 
   const fetchNotifications = async () => {
     try {
@@ -42,6 +59,12 @@ export default function NotificationsPage() {
       (notification.statusForNoti == "accepted" ||
         notification.statusForNoti === "rejected" ||
         notification.statusForNoti === "forwarded")
+    )
+      return;
+    if (
+      userObj.role === "dean" &&
+      (notification.statusForNoti === "rejected" ||
+        notification.statusForNoti === "accepted")
     )
       return;
     console.log(notification);
@@ -113,6 +136,13 @@ export default function NotificationsPage() {
           }),
         }
       );
+      if (result.ok) {
+        handleCloseModal();
+        console.log("Action taken by DEAN");
+        fetchNotifications();
+      } else {
+        console.log("Action was not taken due to an error");
+      }
     }
   };
 
@@ -165,6 +195,14 @@ export default function NotificationsPage() {
     }
   };
 
+  const handleCourseModal = (request) => {
+    setIsCourseModal(true);
+    setSelectedRequest(request);
+  };
+  const handleCourseModalClose = () => {
+    setIsCourseModal(false);
+    setSelectedRequest(null);
+  };
   // Get all the requests when the page loads
   useEffect(() => {
     fetchNotifications();
@@ -189,17 +227,17 @@ export default function NotificationsPage() {
 
         {/* Tab Navigation (Responsive) */}
         <div className="overflow-x-auto pb-2">
-          <div className="flex space-x-2 sm:space-x-4">
+          <div className="flex flex-wrap sm:flex-nowrap w-full justify-between">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap
-                ${
-                  activeTab === tab
-                    ? "bg-gray-700 text-white"
-                    : "bg-gray-800 text-gray-400 hover:bg-gray-700"
-                }`}
+                className={`px-3 py-2 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all duration-300 cursor-pointer whitespace-nowrap w-full sm:w-auto lg:flex-grow ml-3 mb-2
+        ${
+          activeTab === tab
+            ? "bg-gray-700 text-white"
+            : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+        }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
                 <span
@@ -208,7 +246,7 @@ export default function NotificationsPage() {
                   } ${tab == "all" ? "bg-white" : ""} ${
                     tab == "rejected" ? "bg-red-400" : ""
                   } ${tab == "accepted" ? "bg-green-400" : ""}
-                  ${tab == "forwarded" ? "bg-blue-400" : ""} `}
+          ${tab == "forwarded" ? "bg-blue-400" : ""}`}
                 >
                   {
                     notifications.filter(
@@ -244,7 +282,7 @@ export default function NotificationsPage() {
                 </span>
 
                 <div className="flex items-center space-x-2 mt-4 max-w-[85%]">
-                  {getStatusBadge(notification.statusForNoti)}
+                  <span>{getStatusBadge(notification.statusForNoti)} </span>
                   <h1 className="text-lg sm:text-xl font-semibold underline lg:text-3xl">
                     {userObj.role === "dean"
                       ? notification.course.course.course_name
@@ -252,13 +290,57 @@ export default function NotificationsPage() {
                   </h1>
                 </div>
 
-                <h2 className="text-md sm:text-base font-semibold text-right mt-2 lg:text-2xl">
+                <h2
+                  className={`text-md sm:text-base font-semibold text-right mt-2 lg:text-2xl
+                  ${
+                    notification.statusForNoti === "forwarded"
+                      ? "text-blue-500"
+                      : notification.statusForNoti === "rejected"
+                      ? "text-red-500"
+                      : notification.statusForNoti === "accepted"
+                      ? "text-green-500"
+                      : notification.statusForNoti === "pending"
+                      ? "text-yellow-500"
+                      : ""
+                  }
+                  `}
+                >
                   Status: {notification.status}
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm lg:text-2xl">
-                  Description: {notification.requestText}
+                  <span
+                    className={`${
+                      notification.statusForNoti === "forwarded"
+                        ? "text-blue-500"
+                        : notification.statusForNoti === "rejected"
+                        ? "text-red-500"
+                        : notification.statusForNoti === "accepted"
+                        ? "text-green-500"
+                        : notification.statusForNoti === "pending"
+                        ? "text-yellow-500"
+                        : ""
+                    }`}
+                  >
+                    Description:
+                  </span>{" "}
+                  {notification.requestText}
                 </p>
-
+                <p
+                  className={`${
+                    notification.statusForNoti === "forwarded"
+                      ? "text-blue-500"
+                      : notification.statusForNoti === "rejected"
+                      ? "text-red-500"
+                      : notification.statusForNoti === "accepted"
+                      ? "text-green-500"
+                      : notification.statusForNoti === "pending"
+                      ? "text-yellow-500"
+                      : ""
+                  }`}
+                >
+                  Details about the request
+                </p>
+                <hr />
                 <div className="mt-4 sm:text-xl lg:text-xl text-gray-300">
                   <p>
                     Requested Role: {notification.requestedBy.toUpperCase()}
@@ -274,7 +356,43 @@ export default function NotificationsPage() {
                   {notification.requestedBy === "hod" && (
                     <p>HOD Name: {notification.name}</p>
                   )}
-                  <p>Requested on: {notification.lastViewed}</p>
+                  <p>
+                    Last reviewed by authorities :{" "}
+                    {formatDate(notification.lastViewed)}
+                  </p>
+                  <p>HOD's comment : {notification.hodComment}</p>
+                  <p>Dean's comment : {notification.deanComment}</p>
+                </div>
+                <div className="flex items-center justify-center mt-3">
+                  <button
+                    onClick={() => {
+                      handleCourseModal(notification);
+                    }}
+                    className={`p-3 rounded-2xl cursor-pointer transition duration-300 ${
+                      notification.statusForNoti === "forwarded"
+                        ? "bg-blue-500"
+                        : notification.statusForNoti === "rejected"
+                        ? "bg-red-500"
+                        : notification.statusForNoti === "accepted"
+                        ? "bg-green-500"
+                        : notification.statusForNoti === "pending"
+                        ? "bg-yellow-500"
+                        : ""
+                    } ${
+                      notification.statusForNoti === "forwarded"
+                        ? "hover:bg-blue-700"
+                        : notification.statusForNoti === "rejected"
+                        ? "hover:bg-red-700"
+                        : notification.statusForNoti === "accepted"
+                        ? "hover:bg-green-700"
+                        : notification.statusForNoti === "pending"
+                        ? "hover:bg-yellow-700"
+                        : ""
+                    }`}
+                  >
+                    {" "}
+                    Details of the course
+                  </button>
                 </div>
               </div>
             ))
@@ -287,7 +405,7 @@ export default function NotificationsPage() {
       </div>
       {/* Modal with Backdrop Blur */}
       <AnimatePresence>
-        {selectedRequest && (
+        {selectedRequest && !isCourseModal && (
           <>
             <motion.div
               className="fixed inset-0  bg-opacity-30 backdrop-blur-md backdrop-brightness-75 z-40"
@@ -318,18 +436,24 @@ export default function NotificationsPage() {
                 className="w-full p-2 bg-neutral-800 text-white rounded-md outline-none border border-neutral-600 focus:border-blue-500 mb-2"
               />
               <textarea
-                // value={
-                //   userObj.role === "dean"
-                //     ? comment.deanComment
-                //     : comment.hodComment
-                // }
-                // onChange={(e) =>
-                //   setComment(
-                //     userObj.role === "dean"
-                //       ? comment.deanComment
-                //       : comment.hodComment
-                //   )
-                // }
+                value={
+                  userObj.role === "dean"
+                    ? comment.deanComment
+                    : comment.hodComment
+                }
+                onChange={(e) => {
+                  if (userObj.role === "dean") {
+                    setComment({
+                      ...comment,
+                      deanComment: e.target.value,
+                    });
+                  } else {
+                    setComment({
+                      ...comment,
+                      hodComment: e.target.value,
+                    });
+                  }
+                }}
                 className="w-full p-2 bg-neutral-800 text-white rounded-md outline-none border border-neutral-600 focus:border-blue-500"
                 rows="3"
                 placeholder="Describe the reason for your action..."
@@ -361,6 +485,91 @@ export default function NotificationsPage() {
                     Forward Request
                   </button>
                 )}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {isCourseModal && (
+          <>
+            <motion.div
+              className="fixed inset-0  bg-opacity-30 backdrop-blur-md backdrop-brightness-75 z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            ></motion.div>
+            <motion.div
+              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-lg shadow-xl z-50"
+              initial={{ scale: 0.7, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.7, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 120, damping: 10 }}
+            >
+              <h2 className="text-3xl font-semibold text-white mb-4 text-center underline tracking-wider">
+                {selectedRequest.course.course_name}
+              </h2>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Course code :
+                </span>{" "}
+                {selectedRequest.course.course_code}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Category:
+                </span>{" "}
+                {selectedRequest.course.category}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Type:
+                </span>{" "}
+                {selectedRequest.course.tp}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Credits:
+                </span>{" "}
+                {selectedRequest.course.credits}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">LTP:</span>{" "}
+                {selectedRequest.course.ltp}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Gate/Common:
+                </span>{" "}
+                {selectedRequest.course.gate_common}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Semester :
+                </span>{" "}
+                {selectedRequest.course.semester}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Regulation :
+                </span>{" "}
+                {selectedRequest.course.regulation}
+              </p>
+              <p className="text-md text-neutral-300">
+                <span className="text-blue-500 font-medium text-2xl">
+                  Common for departments:
+                </span>{" "}
+                {selectedRequest.course.common_dept.map((dept) => {
+                  return <span>{dept}, </span>;
+                })}
+              </p>
+              <div className="flex items-center justify-center w-full">
+                <button
+                  onClick={handleCourseModalClose}
+                  className="p-2 mt-3 bg-white rounded-xl text-black hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+                >
+                  Close details
+                </button>
               </div>
             </motion.div>
           </>

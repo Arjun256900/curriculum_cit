@@ -14,7 +14,9 @@ function Card({ selectedOption, onOptionChange }) {
 
   const handleContinue = () => {
     localStorage.setItem("regulation", regulation);
-    navigate("/dashboard");
+    setTimeout(() => {
+      navigate("/");
+    }, 50); // Allow time for localStorage update
   };
 
   return (

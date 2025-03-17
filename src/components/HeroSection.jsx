@@ -4,6 +4,7 @@ import video2 from "../assets/landing_video2.mp4";
 import video3 from "../assets/landing_video3.mp4";
 
 const HeroSection = () => {
+  const token = localStorage.getItem('token');
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen px-6 text-center">
       {/* Background Video with Blur & Overlay */}
@@ -34,10 +35,10 @@ const HeroSection = () => {
         {/* CTA Button */}
         <div className="flex justify-center mt-10">
           <a
-            href="/login"
+            href={`${token ? "/dashboard" : "/login"}`}
             className="bg-gradient-to-r from-blue-500 to-blue-700 py-3 px-6 rounded-md text-white text-lg font-medium transition duration-300 hover:bg-gradient-to-r hover:from-neutral-400 hover:to-neutral-200 hover:text-blue-600 active:scale-95 shadow-lg"
           >
-            Get started with signing in
+            {token ? "Go to your dashboard" : "Log in to get started"}
           </a>
         </div>
         <div className="flex mt-10 justify-center">

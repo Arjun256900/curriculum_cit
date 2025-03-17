@@ -8,21 +8,20 @@ import CourseDetails7 from "./semesters/courseDetails7.jsx";
 import CourseDetails8 from "./semesters/courseDetails8.jsx";
 import CourseDetails1 from "./semesters/courseDetails1.jsx";
 import "./MainContent.css";
-import "../components/semesters/courseDetails.css"
+import "../components/semesters/courseDetails.css";
 import FacultyDashboard from "./FacultyDashboard.jsx";
 
-
 const MainContent = ({ selectedSemester, activeNav, setActiveNav }) => {
-  const userObj = JSON.parse(localStorage.getItem('user'));
+  const userObj = JSON.parse(localStorage.getItem("user"));
   const [semesterCourses, setSemesterCourses] = useState({
-    "1": [],
-    "2": [],
-    "3": [],
-    "4": [],
-    "5": [],
-    "6": [],
-    "7": [],
-    "8": [],
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [],
   });
   const department = userObj.department;
   const regulation = localStorage.getItem("regulation");
@@ -46,7 +45,7 @@ const MainContent = ({ selectedSemester, activeNav, setActiveNav }) => {
 
       // Try parsing the response as JSON
       const courses = await response.json();
-      
+
       // Update the state with fetched data
       updateCoursesForSemester(semester, courses); // Set the courses fetched from the server
     } catch (error) {
@@ -71,34 +70,35 @@ const MainContent = ({ selectedSemester, activeNav, setActiveNav }) => {
 
     switch (selectedSemester) {
       case "1":
-        return <CourseDetails1 sem = {1} />;
+        return <CourseDetails1 sem={1} />;
       case "2":
-        return <CourseDetails2 sem = {2} />;
+        return <CourseDetails2 sem={2} />;
       case "3":
-        return <CourseDetails3 sem = {3} />;
+        return <CourseDetails3 sem={3} />;
       case "4":
-        return <CourseDetails4 sem = {4} />;
+        return <CourseDetails4 sem={4} />;
       case "5":
-        return <CourseDetails5 sem = {5} />;
+        return <CourseDetails5 sem={5} />;
       case "6":
-        return <CourseDetails6 sem = {6} />;
+        return <CourseDetails6 sem={6} />;
       case "7":
-        return <CourseDetails7 sem = {7} />;
+        return <CourseDetails7 sem={7} />;
       case "8":
-        return <CourseDetails8 sem = {8} />;
+        return <CourseDetails8 sem={8} />;
       default:
-        return <div className="welcome-msg">Select a semester to add course details</div>;
+        return (
+          <div className="welcome-msg">
+            Select a semester to add course details
+          </div>
+        );
     }
-    
   };
 
   return (
-  <div className="main_content">
-      {activeNav === "dashboard" ? (renderCourseDetails()) : (
-        <FacultyDashboard />
-      )}
-  </div>
-  )
+    <div className="main_content">
+      {activeNav === "dashboard" ? renderCourseDetails() : <FacultyDashboard />}
+    </div>
+  );
 };
 
 export default MainContent;

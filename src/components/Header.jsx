@@ -78,7 +78,6 @@ const Header = ({ activeNav, setActiveNav }) => {
             Analysis
           </a>
           <a
-            href="/dashboard/#"
             onClick={() => handleOptionSelect("syllabus")}
             className={`${
               activeNav === "syllabus" ? "text-blue-500" : ""
@@ -87,6 +86,16 @@ const Header = ({ activeNav, setActiveNav }) => {
             }`}
           >
             Syllabus
+          </a>
+          <a
+            onClick={() => handleOptionSelect("notifications")}
+            className={`${
+              activeNav === "notifications" ? "text-blue-500" : ""
+            } cursor-pointer text-xl px-2 hover:text-white transition duration-300 hover:shadow-lg hover:shadow-white/10 ${
+              location === "/select-department" ? "hidden" : "block"
+            }`}
+          >
+            Notifications
           </a>
           <a
             href="/dashboard"
@@ -118,12 +127,6 @@ const Header = ({ activeNav, setActiveNav }) => {
                 className="absolute right-0 mt-2 w-48 bg-gray-950 shadow-lg rounded-lg py-2"
               >
                 <a
-                  href="#notifications"
-                  className="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition"
-                >
-                  Notifications
-                </a>
-                <a
                   onClick={handleDepartmentClick} // Triggers notification
                   className="block px-4 py-2 cursor-pointer text-gray-300 hover:bg-gray-700 hover:text-white transition"
                 >
@@ -134,6 +137,9 @@ const Header = ({ activeNav, setActiveNav }) => {
                   className="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition"
                 >
                   Regulation - {regulation}
+                </a>
+                <a className="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition">
+                  You are {userObj.role.toUpperCase()}
                 </a>
                 <button
                   onClick={handleSignOut}

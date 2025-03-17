@@ -1,19 +1,20 @@
 import mongoose from "mongoose";
 
-const requestSchema = new mongoose.Schema({
+const changeSchema = new mongoose.Schema({
   course: Object,
   requestText: String,
-  facultyName: String,
+  name: String,
   requestedBy: String,
   department: String,
   lastViewed: Date,
   hodComment: String,
   deanComment: String,
   status: String,
-  statusForNoti: String
+  statusForNoti: String,
+  acceptedBy: String,
+  action: String,
 });
 
-const Request = mongoose.model("ChangeRequest", requestSchema);
+const Change = mongoose.model("ChangesMade", changeSchema);
 
-export default Request;
-  
+export default Change;

@@ -6,6 +6,7 @@ export default function CourseDetails({ sem }) {
   const [isRequesting, setIsRequesting] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [requestText, setRequestText] = useState("");
+  const [name, setName] = useState("");
 
   const userObj = JSON.parse(localStorage.getItem("user")) || null;
   const regulation = localStorage.getItem("regulation");
@@ -20,6 +21,7 @@ export default function CourseDetails({ sem }) {
     setIsRequesting(false);
     setSelectedCourse(null);
     setRequestText(""); // Reset input
+    setName(""); // Reset name input
   };
 
   const handleSubmitRequest = async () => {
@@ -29,7 +31,7 @@ export default function CourseDetails({ sem }) {
       request: requestText,
     });
     const result = await fetch(
-      "http://localhost:5000/api/workflow/modify-course",
+      "http://localhost:5000/api/workflow/make-request",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -37,8 +39,12 @@ export default function CourseDetails({ sem }) {
         body: JSON.stringify({
           course: selectedCourse,
           requestText: requestText,
+          facultyName: name,
           requestedBy: userObj.role,
           department: userObj.department,
+          lastViewed: Date.now(),
+          hodComment: "Pending",
+          deanComment: "Pending",
         }),
       }
     );
@@ -150,7 +156,7 @@ export default function CourseDetails({ sem }) {
 
             {/* Glassmorphism Modal */}
             <motion.div
-              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-lg shadow-xl w-96 z-50"
+              className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-lg border border-white/20 p-6 rounded-lg shadow-xl z-50"
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.7, opacity: 0 }}
@@ -162,6 +168,13 @@ export default function CourseDetails({ sem }) {
               <p className="text-md text-neutral-400 text-center mb-4">
                 Course ID: {selectedCourse.course_code}
               </p>
+              <input
+                placeholder="Your name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full p-2 bg-neutral-800 text-white rounded-md outline-none border border-neutral-600 focus:border-blue-500 mb-2"
+              />
               <textarea
                 className="w-full p-2 bg-neutral-800 text-white rounded-md outline-none border border-neutral-600 focus:border-blue-500"
                 rows="3"

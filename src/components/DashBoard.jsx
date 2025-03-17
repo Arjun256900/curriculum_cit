@@ -1,66 +1,71 @@
-import React, { useState } from "react";
-  import NavBar from "./Navbar.jsx";
-  import Header from "./Header.jsx";
-  import MainContent from "./MainContent.jsx";
-  import "./DashBoard.css";
-  import FacultyDashboard from "./FacultyDashboard.jsx";
-  import Unauthorized from "./Unauthorized.jsx";
+import React, { act, useState } from "react";
+import NavBar from "./Navbar.jsx";
+import Header from "./Header.jsx";
+import MainContent from "./MainContent.jsx";
+import "./DashBoard.css";
+import FacultyDashboard from "./FacultyDashboard.jsx";
+import Unauthorized from "./Unauthorized.jsx";
 
-  function DashBoard() {
-    const regulation = localStorage.getItem("regulation");
-    const userObj = JSON.parse(localStorage.getItem("user")) || {};
-    const token = localStorage.getItem("token") || null;
-    const location = window.location.pathname;
-    console.log("Location in dash :", location);
-    const [selectedSemester, setSelectedSemester] = useState("1");
-    const [activeNav, setActiveNav] = useState("dashboard");
-    const [courseData, setCourseData] = useState({
-      1: [],
-      2: [],
-      3: [],
-      4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-    });
+function DashBoard() {
+  const regulation = localStorage.getItem("regulation");
+  const userObj = JSON.parse(localStorage.getItem("user")) || {};
+  const token = localStorage.getItem("token") || null;
+  const location = window.location.pathname;
+  console.log("Location in dash :", location);
+  const [selectedSemester, setSelectedSemester] = useState("1");
+  const [noti, setNoti] = useState(false);
+  const [activeNav, setActiveNav] = useState("dashboard");
+  const [courseData, setCourseData] = useState({
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: [],
+  });
 
-    const handleSemesterSelect = (semester) => {
-      setSelectedSemester(semester);
-    };
+  const handleSemesterSelect = (semester) => {
+    setSelectedSemester(semester);
+  };
 
-    const updateCoursesForSemester = (semester, updatedCourses) => {
-      setCourseData((prevData) => ({
-        ...prevData,
-        [semester]: updatedCourses,
-      }));
-    };
+  const updateCoursesForSemester = (semester, updatedCourses) => {
+    setCourseData((prevData) => ({
+      ...prevData,
+      [semester]: updatedCourses,
+    }));
+  };
 
-    return (
-      <>
-        {token ? (
-          <div className="app-container">
-            <Header location = {location} activeNav={activeNav} setActiveNav={setActiveNav}/>
+  return (
+    <>
+      {token ? (
+        <div className="app-container">
+          <Header
+            location={location}
+            activeNav={activeNav}
+            setActiveNav={setActiveNav}
+            noti={noti}
+            setNoti={setNoti}
+          />
+          {activeNav !== "notifications" && (
             <NavBar onSelectSemester={handleSemesterSelect} />
-            {userObj.role == "faculty" ? (
-              <FacultyDashboard />
-            ) : (
-              <MainContent
-                selectedSemester={selectedSemester}
-                courseData={courseData}
-                onCourseDataChange={updateCoursesForSemester}
-                department={userObj.department}
-                regulation={regulation}
-                activeNav={activeNav}
-                setActiveNav={setActiveNav}
-              />
-            )}
-          </div>
-        ) : (
-          <Unauthorized />
-        )}
-      </>
-    );
-  }
+          )}
+          <MainContent
+            selectedSemester={selectedSemester}
+            courseData={courseData}
+            onCourseDataChange={updateCoursesForSemester}
+            department={userObj.department}
+            regulation={regulation}
+            activeNav={activeNav}
+            setActiveNav={setActiveNav}
+          />
+        </div>
+      ) : (
+        <Unauthorized />
+      )}
+    </>
+  );
+}
 
-  export default DashBoard;
+export default DashBoard;

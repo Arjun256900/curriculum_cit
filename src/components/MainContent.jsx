@@ -9,6 +9,7 @@ import CourseDetails8 from "./semesters/courseDetails8.jsx";
 import CourseDetails1 from "./semesters/courseDetails1.jsx";
 import "./MainContent.css";
 import "../components/semesters/courseDetails.css";
+import NotificationsPage from "../components/Notifications.jsx";
 import FacultyDashboard from "./FacultyDashboard.jsx";
 
 const MainContent = ({ selectedSemester, activeNav, setActiveNav }) => {
@@ -96,7 +97,9 @@ const MainContent = ({ selectedSemester, activeNav, setActiveNav }) => {
 
   return (
     <div className="main_content">
-      {activeNav === "dashboard" ? renderCourseDetails() : <FacultyDashboard />}
+      {activeNav === "notifications" && <NotificationsPage />}
+      {activeNav === "dashboard" && renderCourseDetails()}
+      {activeNav === "syllabus" && <FacultyDashboard />}
     </div>
   );
 };

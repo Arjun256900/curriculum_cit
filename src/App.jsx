@@ -11,6 +11,7 @@ import PreviewTable from "./components/PreviewTable.jsx";
 import LandingPage from "./components/LandingPage.jsx";
 import Login from "./components/Login.jsx";
 import { AuthProvider } from "./components/AuthContext.jsx";
+import Notifications from "./components/Notifications.jsx";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -34,6 +35,7 @@ function App() {
           />
           <Route path="/chart" element={<CreditsPieChart />} />
           <Route path="/preview" element={<PreviewTable />} />
+          <Route path="/noti" element={<Notifications />} />
         </Routes>
       </Router>
     </AuthProvider>
